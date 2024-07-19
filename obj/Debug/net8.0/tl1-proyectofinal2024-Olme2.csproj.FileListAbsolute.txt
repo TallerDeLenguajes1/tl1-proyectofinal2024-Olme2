@@ -12,3 +12,4 @@ C:\tl1-proyectofinal2024-Olme2\obj\Debug\net8.0\refint\tl1-proyectofinal2024-Olm
 C:\tl1-proyectofinal2024-Olme2\obj\Debug\net8.0\tl1-proyectofinal2024-Olme2.pdb
 C:\tl1-proyectofinal2024-Olme2\obj\Debug\net8.0\tl1-proyectofinal2024-Olme2.genruntimeconfig.cache
 C:\tl1-proyectofinal2024-Olme2\obj\Debug\net8.0\ref\tl1-proyectofinal2024-Olme2.dll
+C:\tl1-proyectofinal2024-Olme2\obj\Debug\net8.0\tl1-proyectofinal2024-Olme2.sourcelink.json
