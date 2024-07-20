@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 public class Personaje{
     Caracteristicas CarPersonaje{get;set;}
     Datos DatosPersonaje{get;set;}
@@ -143,7 +145,40 @@ public class FabricaDePersonajes{
         Caracteristicas caracteristicas=Caracteristicas.GenerarCaracteristicas(tipo);
         DateTime nacimiento;
         switch(tipo){
-            case
+            case Datos.Tipos.Dios:
+                nacimiento = DateTime.Now.AddYears(-random.Next(1_000_000, 10_000_000));
+            break;
+            case Datos.Tipos.Alienigena:
+                nacimiento = DateTime.Now.AddYears(-random.Next(100, 500));
+            break;
+            default:
+                nacimiento = DateTime.Now.AddYears(-random.Next(20, 40));
+            break;
         }
+        int edad = DateTime.Now.Year - nacimiento.Year;
+        Datos dato=new Datos(tipo, nombre.ToString(), nacimiento, edad);
+        return new Personaje(caracteristicas, dato);
+    }
+    public static List<Personaje> GenerarNpc(Dificultad.Dificultades dificultad){
+        List<Personaje> npcs=new List<Personaje>();
+        int n;
+        switch(dificultad){
+            case Dificultad.Dificultades.Facil:
+                n=3;
+            break;
+            case Dificultad.Dificultades.Medio:
+                n=7;
+            break;
+            case Dificultad.Dificultades.Dificil:
+                n=15;
+            break;
+            default:
+                n=0;
+            break;
+        }
+        for(int i=0; i<n; i++){
+            npcs.Add(GenerarPersonaje());
+        }
+        return npcs;
     }
 }
