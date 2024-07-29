@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 
 public class Personaje{
-    Caracteristicas CarPersonaje{get;set;}
-    Datos DatosPersonaje{get;set;}
+    public Caracteristicas CarPersonaje{get;set;}
+    public Datos DatosPersonaje{get;set;}
     public Personaje(Caracteristicas caracteristicas, Datos datos){
         CarPersonaje=caracteristicas;
         DatosPersonaje=datos;
@@ -40,21 +40,21 @@ public class Caracteristicas{
         Random random = new Random();
         switch (tipo){
             case Datos.Tipos.Humano:
-                return new Caracteristicas(random.Next(5, 10), random.Next(5, 10), random.Next(5, 10), 1, random.Next(1, 5));
+                return new Caracteristicas(random.Next(1, 10), random.Next(1, 10), random.Next(1, 10), 1, random.Next(5, 10));
             case Datos.Tipos.Dios:
-                return new Caracteristicas(random.Next(8, 10), random.Next(8, 10), random.Next(8, 10), 1, random.Next(5, 10));
+                return new Caracteristicas(random.Next(1, 10), random.Next(1, 10), random.Next(5, 10), 1, random.Next(1, 10));
             case Datos.Tipos.Mutante:
-                return new Caracteristicas(random.Next(6, 10), random.Next(6, 10), random.Next(6, 10), 1, random.Next(3, 7));
+                return new Caracteristicas(random.Next(5, 10), random.Next(1, 10), random.Next(1, 10), 1, random.Next(1, 10));
             case Datos.Tipos.Soldado:
-                return new Caracteristicas(random.Next(6, 9), random.Next(6, 9), random.Next(6, 9), 1, random.Next(4, 8));
+                return new Caracteristicas(random.Next(1, 10), random.Next(5, 10), random.Next(1, 10), 1, random.Next(1, 10));
             case Datos.Tipos.GuardianDeLaGalaxia:
-                return new Caracteristicas(random.Next(6, 10), random.Next(6, 10), random.Next(6, 10), 1, random.Next(4, 8));
+                return new Caracteristicas(random.Next(1, 10), random.Next(1, 10), random.Next(1, 10), 1, random.Next(1, 10));
             case Datos.Tipos.Mago:
-                return new Caracteristicas(random.Next(4, 8), random.Next(7, 10), random.Next(3, 6), 1, random.Next(2, 5));
+                return new Caracteristicas(random.Next(1, 10), random.Next(1, 10), random.Next(5, 10), 1, random.Next(1, 10));
             case Datos.Tipos.Alienigena:
-                return new Caracteristicas(random.Next(7, 10), random.Next(6, 9), random.Next(7, 10), 1, random.Next(5, 9));
+                return new Caracteristicas(random.Next(5, 10), random.Next(1, 10), random.Next(1, 10), 1, random.Next(1, 10));
             default:
-                return new Caracteristicas(random.Next(5, 10), random.Next(5, 10), random.Next(5, 10), 1, random.Next(1, 5));
+                return new Caracteristicas(random.Next(1, 10), random.Next(1, 10), random.Next(1, 10), 1, random.Next(1, 5));
         }
     }
 }
@@ -70,42 +70,43 @@ public class Datos{
         Edad=edad;
     }
     public enum Tipos{
-    Humano,
-    Dios,
-    Mutante,
-    Soldado,
-    GuardianDeLaGalaxia,
-    Mago,
-    Alienigena
+        Humano,
+        Dios,
+        Mutante,
+        Soldado,
+        GuardianDeLaGalaxia,
+        Mago,
+        Alienigena
     }
     public enum Nombres{
-    CapitanAmerica,
-    IronMan,
-    Thor,
-    Hulk,
-    SpiderMan,
-    DoctorStrange,
-    Deadpool,
-    BlackWidow,
-    BlackPanter,
-    CaptainMarvel,
-    Gamora,
-    StarLord,
-    ScarletWitch,
-    HawkEye,
-    Thanos,
-    Wolverine,
-    AntMan,
-    Venom,
-    Rocket,
-    GreenGoblin,
-    Falcon,
-    TorchMan,
-    Groot,
-    Drax,
-    Loki,
-    WinterSoldier
+        CapitanAmerica,
+        IronMan,
+        Thor,
+        Hulk,
+        SpiderMan,
+        DoctorStrange,
+        Deadpool,
+        BlackWidow,
+        BlackPanter,
+        CaptainMarvel,
+        Gamora,
+        StarLord,
+        ScarletWitch,
+        HawkEye,
+        Thanos,
+        Wolverine,
+        AntMan,
+        Venom,
+        Rocket,
+        GreenGoblin,
+        Falcon,
+        TorchMan,
+        Groot,
+        Drax,
+        Loki,
+        WinterSoldier
     }
+    public static List<string> NombresPersonajes = Enum.GetValues(typeof(Datos.Nombres)).Cast<Datos.Nombres>().Select(nombre => nombre.ToString()).ToList();
     public static Dictionary<Nombres, Tipos> personajeTipos = new Dictionary<Nombres, Tipos>{
                 { Nombres.CapitanAmerica, Tipos.Soldado },
                 { Nombres.WinterSoldier, Tipos.Soldado},
@@ -137,10 +138,20 @@ public class Datos{
 }
 
 public class FabricaDePersonajes{
-    private static Random random=new Random();
+    private static Random random = new Random();
+    private static HashSet<Datos.Nombres> nombresUsados = new HashSet<Datos.Nombres>();
     public static Personaje GenerarPersonaje(){
         Array nombresValues=Enum.GetValues(typeof(Datos.Nombres));
-        Datos.Nombres nombre=(Datos.Nombres)nombresValues.GetValue(random.Next(nombresValues.Length));
+        Datos.Nombres nombre;
+        if (nombresUsados.Count >= nombresValues.Length)
+        {
+            throw new InvalidOperationException("No quedan nombres únicos disponibles.");
+        }
+         do
+        {
+            nombre = (Datos.Nombres)nombresValues.GetValue(random.Next(nombresValues.Length));
+        } while (nombresUsados.Contains(nombre));
+        nombresUsados.Add(nombre);
         Datos.Tipos tipo=Datos.personajeTipos[nombre];
         Caracteristicas caracteristicas=Caracteristicas.GenerarCaracteristicas(tipo);
         DateTime nacimiento;
@@ -176,6 +187,7 @@ public class FabricaDePersonajes{
                 n=0;
             break;
         }
+        nombresUsados.Clear();
         for(int i=0; i<n; i++){
             npcs.Add(GenerarPersonaje());
         }
