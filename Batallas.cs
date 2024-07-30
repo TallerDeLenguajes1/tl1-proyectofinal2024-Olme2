@@ -2,8 +2,8 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 
 public class Batalla{
-        Random random = new Random();
-        public float dañoProvocado(Caracteristicas atacante, Caracteristicas defensor){
+        public static Random random = new Random();
+        public static float dañoProvocado(Caracteristicas atacante, Caracteristicas defensor){
             int ataque=atacante.Destreza*atacante.Fuerza*atacante.Nivel;
             int efectividad=random.Next(1,100);
             int defensa=defensor.Armadura*defensor.Velocidad;
@@ -12,8 +12,9 @@ public class Batalla{
             return dañoProvocado;
         }
        
-        public int generarBatallaUsuario(Personaje usuario, Personaje npc){
+        public static Personaje generarBatallaUsuario(Personaje usuario, Personaje npc){
             Console.WriteLine($"Siguiente batalla, {usuario.DatosPersonaje.Nombre} vs {npc.DatosPersonaje.Nombre}");
+            Thread.Sleep(2000);
             string ? insulto=APIinsultos.GetInsulto().ToString();
             Console.WriteLine($"{usuario.DatosPersonaje.Nombre}: {insulto}");
             Console.WriteLine($"{npc.DatosPersonaje.Nombre}: {insulto}");
@@ -37,13 +38,12 @@ public class Batalla{
             if(npc.CarPersonaje.Salud<0){
                 Console.WriteLine($"¡{npc.DatosPersonaje.Nombre} ha sido derrotado!¡Enhorabuena!");
                 usuario.CarPersonaje.aumentarNivel(5,5,5,5);
-                return 1;
             }else{
                 Console.WriteLine($"¡Has sido derrotado!\n// GAME OVER //");
-                return 0;
             }
+            return usuario;
         }
-        public Personaje generarBatallaNPC(Personaje npc1, Personaje npc2){
+        public static Personaje generarBatallaNPC(Personaje npc1, Personaje npc2){
             Console.WriteLine($"Siguiente batalla: {npc1.DatosPersonaje.Nombre} vs {npc1.DatosPersonaje.Nombre}");
             int round=1;
             while(npc1.CarPersonaje.Salud>0 && npc2.CarPersonaje.Salud>0){

@@ -11,8 +11,8 @@ public class Personaje{
         Console.WriteLine($"\n{personaje.DatosPersonaje.Nombre}:\n");
         Console.WriteLine("///// Biografia /////");
         Console.WriteLine($"Nombre: {personaje.DatosPersonaje.Nombre}");
-        Console.WriteLine($"Nacimiento: {personaje.DatosPersonaje.Nacimiento.Date}");
-        Console.WriteLine($"Edad: {personaje.DatosPersonaje.Edad}");
+        Console.WriteLine($"Nacimiento: {personaje.DatosPersonaje.Nacimiento.Date.ToShortDateString()}");
+        Console.WriteLine($"Edad: {personaje.DatosPersonaje.Edad} años");
         Console.WriteLine($"Tipo: {personaje.DatosPersonaje.Tipo}");
         Console.WriteLine("//////////////////////");
         Console.WriteLine("///// Caracteristicas /////");
