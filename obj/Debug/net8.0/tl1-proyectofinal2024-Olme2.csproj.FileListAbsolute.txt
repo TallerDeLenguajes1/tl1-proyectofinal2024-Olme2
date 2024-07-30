@@ -13,3 +13,10 @@ C:\tl1-proyectofinal2024-Olme2\obj\Debug\net8.0\tl1-proyectofinal2024-Olme2.pdb
 C:\tl1-proyectofinal2024-Olme2\obj\Debug\net8.0\tl1-proyectofinal2024-Olme2.genruntimeconfig.cache
 C:\tl1-proyectofinal2024-Olme2\obj\Debug\net8.0\ref\tl1-proyectofinal2024-Olme2.dll
 C:\tl1-proyectofinal2024-Olme2\obj\Debug\net8.0\tl1-proyectofinal2024-Olme2.sourcelink.json
+C:\tl1-proyectofinal2024-Olme2\obj\Debug\net8.0\tl1-proyectofinal2024-Olme2.csproj.AssemblyReference.cache
+C:\tl1-proyectofinal2024-Olme2\bin\Debug\net8.0\FIGlet.dll
+C:\tl1-proyectofinal2024-Olme2\bin\Debug\net8.0\FigletFontArt.dll
+C:\tl1-proyectofinal2024-Olme2\obj\Debug\net8.0\tl1-proy.16C2575D.Up2Date
+C:\tl1-proyectofinal2024-Olme2\bin\Debug\net8.0\WenceyWang.FIGlet.dll
+C:\tl1-proyectofinal2024-Olme2\bin\Debug\net8.0\JetBrains.Annotations.dll
+C:\tl1-proyectofinal2024-Olme2\bin\Debug\net8.0\Newtonsoft.Json.dll

@@ -11,21 +11,10 @@ public class Batalla{
             float dañoProvocado=((ataque*efectividad)-defensa)/constanteDeAjuste;
             return dañoProvocado;
         }
-        private class InsultoResponse{
-            public string Insult { get; set; }
-        }
-        private static readonly HttpClient client=new HttpClient();
-        private static async Task<string> GetInsulto(){
-            var url="https://evilinsult.com/generate_insult.php?lang=es&type=json";
-            HttpResponseMessage response=await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            string responseBody=await response.Content.ReadAsStringAsync();
-            var insultoData=System.Text.Json.JsonSerializer.Deserialize<InsultoResponse>(responseBody);
-            return insultoData?.Insult??"¡Insulto no disponible!";
-        }
+       
         public int generarBatallaUsuario(Personaje usuario, Personaje npc){
             Console.WriteLine($"Siguiente batalla, {usuario.DatosPersonaje.Nombre} vs {npc.DatosPersonaje.Nombre}");
-            string insulto=GetInsulto().ToString();
+            string ? insulto=APIinsultos.GetInsulto().ToString();
             Console.WriteLine($"{usuario.DatosPersonaje.Nombre}: {insulto}");
             Console.WriteLine($"{npc.DatosPersonaje.Nombre}: {insulto}");
             Console.WriteLine("¡Empieza el combate!");
@@ -56,7 +45,9 @@ public class Batalla{
         }
         public Personaje generarBatallaNPC(Personaje npc1, Personaje npc2){
             Console.WriteLine($"Siguiente batalla: {npc1.DatosPersonaje.Nombre} vs {npc1.DatosPersonaje.Nombre}");
+            int round=1;
             while(npc1.CarPersonaje.Salud>0 && npc2.CarPersonaje.Salud>0){
+                Console.WriteLine($"Round {round}, ¡FIGHT!");
                 float dañoANPC2=dañoProvocado(npc1.CarPersonaje, npc2.CarPersonaje);
                 npc2.CarPersonaje.Salud-=dañoANPC2;
                 if(npc2.CarPersonaje.Salud<0){
@@ -67,13 +58,14 @@ public class Batalla{
                 if(npc1.CarPersonaje.Salud<0){
                     break;
                 }
+                round++;
             }
             if(npc2.CarPersonaje.Salud<=0){
-                Console.WriteLine($"Ganador: {npc1.DatosPersonaje.Nombre}");
+                Console.WriteLine($"¡Ganador: {npc1.DatosPersonaje.Nombre} Despues de {round} rounds!");
                 npc1.CarPersonaje.aumentarNivel(5,5,5,5);
                 return npc1;
             }else{
-                Console.WriteLine($"Ganador: {npc2.DatosPersonaje.Nombre}");
+                Console.WriteLine($"¡Ganador: {npc2.DatosPersonaje.Nombre} Despues de {round} rounds!");
                 npc2.CarPersonaje.aumentarNivel(5,5,5,5);
                 return npc2;
             }

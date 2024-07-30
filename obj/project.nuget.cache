@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "vpUqEq6rH3A=",
+  "dgSpecHash": "WXyE+ysI/E0=",
   "success": true,
   "projectFilePath": "C:\\tl1-proyectofinal2024-Olme2\\tl1-proyectofinal2024-Olme2.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Valentino\\.nuget\\packages\\figlet-_-lib\\1.0.8\\figlet-_-lib.1.0.8.nupkg.sha512",
+    "C:\\Users\\Valentino\\.nuget\\packages\\figlet.net\\1.1.2\\figlet.net.1.1.2.nupkg.sha512",
+    "C:\\Users\\Valentino\\.nuget\\packages\\figletfontart\\1.0.0\\figletfontart.1.0.0.nupkg.sha512",
+    "C:\\Users\\Valentino\\.nuget\\packages\\jetbrains.annotations\\2020.1.0\\jetbrains.annotations.2020.1.0.nupkg.sha512",
+    "C:\\Users\\Valentino\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

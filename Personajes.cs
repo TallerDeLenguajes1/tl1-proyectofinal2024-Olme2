@@ -7,6 +7,21 @@ public class Personaje{
         CarPersonaje=caracteristicas;
         DatosPersonaje=datos;
     }
+    public static void mostrarPersonaje(Personaje personaje){
+        Console.WriteLine($"\n{personaje.DatosPersonaje.Nombre}:\n");
+        Console.WriteLine("///// Biografia /////");
+        Console.WriteLine($"Nombre: {personaje.DatosPersonaje.Nombre}");
+        Console.WriteLine($"Nacimiento: {personaje.DatosPersonaje.Nacimiento.Date}");
+        Console.WriteLine($"Edad: {personaje.DatosPersonaje.Edad}");
+        Console.WriteLine($"Tipo: {personaje.DatosPersonaje.Tipo}");
+        Console.WriteLine("//////////////////////");
+        Console.WriteLine("///// Caracteristicas /////");
+        Console.WriteLine($"Velocidad: {personaje.CarPersonaje.Velocidad}");
+        Console.WriteLine($"Fuerza: {personaje.CarPersonaje.Fuerza}");
+        Console.WriteLine($"Destreza: {personaje.CarPersonaje.Destreza}");
+        Console.WriteLine($"Armadura: {personaje.CarPersonaje.Armadura}");
+        Console.WriteLine($"///////////////////////////\n");
+    }
 }
 public class Caracteristicas{
     public int Velocidad{get;set;}
@@ -57,10 +72,11 @@ public class Caracteristicas{
                 return new Caracteristicas(random.Next(1, 10), random.Next(1, 10), random.Next(1, 10), 1, random.Next(1, 5));
         }
     }
+    
 }
 public class Datos{
     public Tipos Tipo{get; set;}
-    public string Nombre{get; set;}
+    public string? Nombre{get; set;}
     public DateTime Nacimiento{get;set;}
     public int Edad{get;set;}
     public Datos(Tipos tipo, string nombre, DateTime nacimiento, int edad){
@@ -106,7 +122,7 @@ public class Datos{
         Loki,
         WinterSoldier
     }
-    public static List<string> NombresPersonajes = Enum.GetValues(typeof(Datos.Nombres)).Cast<Datos.Nombres>().Select(nombre => nombre.ToString()).ToList();
+    public static List<Datos.Nombres> NombresPersonajes = Enum.GetValues(typeof(Datos.Nombres)).Cast<Datos.Nombres>().ToList();
     public static Dictionary<Nombres, Tipos> personajeTipos = new Dictionary<Nombres, Tipos>{
                 { Nombres.CapitanAmerica, Tipos.Soldado },
                 { Nombres.WinterSoldier, Tipos.Soldado},
@@ -140,16 +156,36 @@ public class Datos{
 public class FabricaDePersonajes{
     private static Random random = new Random();
     private static HashSet<Datos.Nombres> nombresUsados = new HashSet<Datos.Nombres>();
-    public static Personaje GenerarPersonaje(){
+    public static Personaje generarPersonajePrincipal(Datos.Nombres nombre){
+        nombresUsados.Add(nombre);
+        Datos.Tipos tipo=Datos.personajeTipos[nombre];
+        Caracteristicas caracteristicas=Caracteristicas.GenerarCaracteristicas(tipo);
+        DateTime nacimiento;
+        switch(tipo){
+            case Datos.Tipos.Dios:
+                nacimiento = DateTime.Now.AddYears(-2023);
+            break;
+            case Datos.Tipos.Alienigena:
+                nacimiento = DateTime.Now.AddYears(-random.Next(100, 500));
+            break;
+            default:
+                nacimiento = DateTime.Now.AddYears(-random.Next(20, 40));
+            break;
+        }
+        int edad=DateTime.Now.Year-nacimiento.Year;
+        Datos dato=new Datos(tipo, nombre.ToString(), nacimiento, edad);
+        return new Personaje(caracteristicas, dato);
+    }
+    public static Personaje GenerarPersonajeAleatorio(){
         Array nombresValues=Enum.GetValues(typeof(Datos.Nombres));
         Datos.Nombres nombre;
-        if (nombresUsados.Count >= nombresValues.Length)
-        {
+        if (nombresUsados.Count >= nombresValues.Length){
             throw new InvalidOperationException("No quedan nombres únicos disponibles.");
         }
-         do
-        {
+        do{
+        #pragma warning disable CS8605 // Conversión unboxing a un valor posiblemente NULL.
             nombre = (Datos.Nombres)nombresValues.GetValue(random.Next(nombresValues.Length));
+        #pragma warning restore CS8605 // Conversión unboxing a un valor posiblemente NULL.
         } while (nombresUsados.Contains(nombre));
         nombresUsados.Add(nombre);
         Datos.Tipos tipo=Datos.personajeTipos[nombre];
@@ -157,7 +193,7 @@ public class FabricaDePersonajes{
         DateTime nacimiento;
         switch(tipo){
             case Datos.Tipos.Dios:
-                nacimiento = DateTime.Now.AddYears(-random.Next(1_000_000, 10_000_000));
+                nacimiento = DateTime.Now.AddYears(-2023);
             break;
             case Datos.Tipos.Alienigena:
                 nacimiento = DateTime.Now.AddYears(-random.Next(100, 500));
@@ -187,9 +223,8 @@ public class FabricaDePersonajes{
                 n=0;
             break;
         }
-        nombresUsados.Clear();
         for(int i=0; i<n; i++){
-            npcs.Add(GenerarPersonaje());
+            npcs.Add(GenerarPersonajeAleatorio());
         }
         return npcs;
     }
