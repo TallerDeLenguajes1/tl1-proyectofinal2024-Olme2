@@ -101,7 +101,17 @@
         Thread.Sleep(1000); 
     }
     Console.WriteLine("\r¡A luchar!");
-    while(true){
-        
+    Torneo.iniciarTorneo(Torneo.Instancia.instancias);
+    if(Torneo.jugarDeVuelta()){
+        for(i=0; i<5; i++){
+            Console.WriteLine("¡Entendido! Reiniciando torneo.");
+            Thread.Sleep(500);
+            Console.Write(".");
+            Thread.Sleep(500);
+            Console.Write(".");
+        }
+    }else{
+        Console.WriteLine("¡Entendido! ¡Adiosss, gracias por jugar!");
+        break;
     }
 }

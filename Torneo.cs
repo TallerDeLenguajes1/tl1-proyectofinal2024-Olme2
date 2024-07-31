@@ -32,7 +32,7 @@ public class Torneo{
             Personaje1=personaje1;
             Personaje2=personaje2;
         }
-        public static List<Instancia> instancias=new List<Instancia>();
+        public static List<Instancia?> instancias=new List<Instancia?>();
         public static void CrearInstanciasIniciales(Dificultad.Dificultades dificultad, Personaje PersonajePrincipal, List<Personaje> npcs){
             List<Personaje> npcsUsados=new List<Personaje>();
             Personaje npc1;
@@ -87,7 +87,7 @@ public class Torneo{
             }
         }
     }
-    public static void escribirFixture(List<Instancia> instancias){
+    public static void escribirFixture(List<Instancia?> instancias){
         Console.WriteLine("FIXTURE DEL TORNEO:\n");
         Thread.Sleep(2000);
         foreach(Instancia instancia in instancias){
@@ -139,7 +139,7 @@ public class Torneo{
         }
 
     }
-    public static void generarSemis(List<Instancia> instancias){
+    public static void generarSemis(List<Instancia?> instancias){
         Console.WriteLine("BATALLA SEMIFINAL:");
         Personaje personajePrincipal=Batalla.generarBatallaUsuario(instancias[0].Personaje1, instancias[0].Personaje2);
         Personaje npcFinalista=Batalla.generarBatallaNPC(instancias[1].Personaje1, instancias[2].Personaje2);
@@ -166,9 +166,51 @@ public class Torneo{
     public static void mensajeDerrota(){
         Console.WriteLine("Oh, perdiste en la final, que lastima");
     }
-    public static void jugarDeVuelta(){
-
-        Console.WriteLine("¿Deseas jugar de vuelta?");
+    public static bool jugarDeVuelta(){
+        int jugar=0;
+        string[] opciones={"Si","No"};
+        while(true){
+            Console.Clear();
+            Console.WriteLine("¿Deseas jugar de vuelta?");
+            for(int i=0; i<opciones.Length; i++){
+                if (jugar == i)
+                {
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
+                Console.Write(opciones[i]);
+                Console.ResetColor();
+            }
+            var tecla = Console.ReadKey(true);
+            if (tecla.Key == ConsoleKey.UpArrow){
+                jugar = (jugar == 0) ? opciones.Length - 1 : jugar - 1;
+            }else if (tecla.Key == ConsoleKey.DownArrow){
+                jugar = (jugar == opciones.Length - 1) ? 0 : jugar + 1;
+            }
+            else if (tecla.Key == ConsoleKey.Enter)
+            {
+                if (jugar == 1)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
     }
-
+    public static void iniciarTorneo(List<Instancia?> instancias){
+        if(instancias.Count==8){
+            generarOctavos(instancias);
+            generarCuartos(instancias);
+            generarSemis(instancias);
+        }else if(instancias.Count==4){
+            generarCuartos(instancias);
+            generarSemis(instancias);
+        }else{
+            generarSemis(instancias);
+        }
+        generarFinal(instancias[0].Personaje1, instancias[0].Personaje2);
+    }
 }
