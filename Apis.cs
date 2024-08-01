@@ -1,16 +1,14 @@
-using Newtonsoft.Json;
 
-public class APIinsultos{
-     private class InsultoResponse{
-            public string ? Insult { get; set; }
-        }
-        private static readonly HttpClient client=new HttpClient();
-        public static async Task<string> GetInsulto(){
-            var url="https://evilinsult.com/generate_insult.php?lang=es&type=json";
-            HttpResponseMessage response=await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            string responseBody=await response.Content.ReadAsStringAsync();
-            var insultoData=System.Text.Json.JsonSerializer.Deserialize<InsultoResponse>(responseBody);
-            return insultoData?.Insult??"¡Insulto no disponible!";
-        }
- }
+public class APIinsultos
+{
+    public class Insulto{
+        public int number{get;set;}
+        public string language{get;set;}
+        public string insult{get;set;}
+        public DateTime created{get;set;}
+        public int shown{get;set;}
+        public string createdby{get;set;}
+        public int active{get;set;}
+        public string comment{get;set;}
+    }
+}

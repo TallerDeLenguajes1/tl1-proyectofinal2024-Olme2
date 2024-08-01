@@ -11,7 +11,7 @@ public class Personaje{
         Console.WriteLine($"\n{personaje.DatosPersonaje.Nombre}:\n");
         Console.WriteLine("///// Biografia /////");
         Console.WriteLine($"Nombre: {personaje.DatosPersonaje.Nombre}");
-        Console.WriteLine($"Nacimiento: {personaje.DatosPersonaje.Nacimiento.Date.ToShortDateString()}");
+        Console.WriteLine($"Nacimiento: {personaje.DatosPersonaje.Nacimiento.Year}");
         Console.WriteLine($"Edad: {personaje.DatosPersonaje.Edad} años");
         Console.WriteLine($"Tipo: {personaje.DatosPersonaje.Tipo}");
         Console.WriteLine("//////////////////////");
@@ -40,8 +40,16 @@ public class Caracteristicas{
         Salud=100;
     }
 
-    public void reiniciarSalud(){
-        Salud=100;
+    public void aumentarA200Salud(){
+        Salud=200;
+    }
+
+    public void aumentarA350Salud(){
+        Salud=350;
+    }
+    
+    public void aumentarA500Salud(){
+        Salud=500;
     }
 
     public void aumentarNivel(int masVelocidad, int masDestreza, int masFuerza, int masArmadura){
