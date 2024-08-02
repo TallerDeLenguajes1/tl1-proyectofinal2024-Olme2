@@ -8,19 +8,19 @@ public class Personaje{
         DatosPersonaje=datos;
     }
     public static void mostrarPersonaje(Personaje personaje){
-        Console.WriteLine($"\n{personaje.DatosPersonaje.Nombre}:\n");
-        Console.WriteLine("///// Biografia /////");
+        Console.WriteLine($"{personaje.DatosPersonaje.Nombre}:\n");
+        Console.WriteLine("///////// Biografia /////////");
         Console.WriteLine($"Nombre: {personaje.DatosPersonaje.Nombre}");
         Console.WriteLine($"Nacimiento: {personaje.DatosPersonaje.Nacimiento.Year}");
         Console.WriteLine($"Edad: {personaje.DatosPersonaje.Edad} años");
         Console.WriteLine($"Tipo: {personaje.DatosPersonaje.Tipo}");
-        Console.WriteLine("//////////////////////");
-        Console.WriteLine("///// Caracteristicas /////");
+        Console.WriteLine("/////////////////////////////");
+        Console.WriteLine("////// Caracteristicas //////");
         Console.WriteLine($"Velocidad: {personaje.CarPersonaje.Velocidad}");
         Console.WriteLine($"Fuerza: {personaje.CarPersonaje.Fuerza}");
         Console.WriteLine($"Destreza: {personaje.CarPersonaje.Destreza}");
         Console.WriteLine($"Armadura: {personaje.CarPersonaje.Armadura}");
-        Console.WriteLine($"///////////////////////////\n");
+        Console.WriteLine($"/////////////////////////////\n");
     }
 }
 public class Caracteristicas{
@@ -29,7 +29,7 @@ public class Caracteristicas{
     public int Fuerza{get;set;}
     public int Nivel{get;set;}
     public int Armadura{get;set;}
-    public float Salud{get;set;}
+    public double Salud{get;set;}
 
     public Caracteristicas(int velocidad, int destreza, int fuerza, int nivel, int armadura){
         Velocidad=velocidad;

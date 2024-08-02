@@ -27,7 +27,7 @@ public class Torneo{
         public string? NombreInstancia{get;set;}
         public Personaje? Personaje1{get;set;}
         public Personaje? Personaje2{get;set;}
-        public Instancia(string nombreInstancia, Personaje personaje1, Personaje personaje2){
+        public Instancia(string nombreInstancia, Personaje? personaje1, Personaje? personaje2){
             NombreInstancia=nombreInstancia;
             Personaje1=personaje1;
             Personaje2=personaje2;
@@ -87,19 +87,20 @@ public class Torneo{
             }
         }
     }
-    public static void escribirFixture(List<Instancia?> instancias){
+    public static void escribirFixture(List<Instancia?>? instancias){
         Console.WriteLine("FIXTURE DEL TORNEO:\n");
         Thread.Sleep(2000);
-        foreach(Instancia instancia in instancias){
+        foreach(Instancia? instancia in instancias){
             Console.WriteLine(instancia.NombreInstancia+":");
             Console.WriteLine(instancia.Personaje1.DatosPersonaje.Nombre+" vs "+instancia.Personaje2.DatosPersonaje.Nombre+"\n");
             Thread.Sleep(1000);
         }
     }
-    public static List<Instancia> generarOctavos(List<Instancia?> instancias){
-        List<Personaje>? npcsGanadores=new List<Personaje>();
+    public static List<Instancia?> generarOctavos(List<Instancia?> instancias){
+        List<Personaje?> npcsGanadores=new List<Personaje?>();
         int i,j;
-        Console.WriteLine("BATALLA OCTAVOS DE FINAL:");
+        Console.WriteLine("OCTAVOS DE FINAL");
+        Thread.Sleep(2000);
         Personaje? personajePrincipal=Batalla.generarBatallaUsuario(instancias[0].Personaje1, instancias[0].Personaje2);
         if(personajePrincipal!=instancias[0].Personaje1){
             instancias.Clear();
@@ -122,10 +123,11 @@ public class Torneo{
         }
         return instancias;
     }
-    public static List<Instancia> generarCuartos(List<Instancia?> instancias){
-        List<Personaje> npcsGanadores=new List<Personaje>();
+    public static List<Instancia?> generarCuartos(List<Instancia?> instancias){
+        List<Personaje?> npcsGanadores=new List<Personaje?>();
         int i,j;
-        Console.WriteLine("BATALLA CUARTOS DE FINAL:");
+        Console.WriteLine("CUARTOS DE FINAL");
+        Thread.Sleep(2000);
         Personaje? personajePrincipal=Batalla.generarBatallaUsuario(instancias[0].Personaje1, instancias[0].Personaje2);
         if(personajePrincipal!=instancias[0].Personaje1){
             instancias.Clear();
@@ -150,60 +152,64 @@ public class Torneo{
         }
         return instancias;
     }
-    public static List<Instancia> generarSemis(List<Instancia?> instancias){
-        Console.WriteLine("BATALLA SEMIFINAL:");
-        Personaje personajePrincipal=Batalla.generarBatallaUsuario(instancias[0].Personaje1, instancias[0].Personaje2);
+    public static List<Instancia?> generarSemis(List<Instancia?> instancias){
+        Console.WriteLine("SEMIFINAL");
+        Thread.Sleep(2000);
+        Personaje? personajePrincipal=Batalla.generarBatallaUsuario(instancias[0].Personaje1, instancias[0].Personaje2);
         if(personajePrincipal!=instancias[0].Personaje1){
             instancias.Clear();
             return instancias;
         }
-        Personaje npcFinalista=Batalla.generarBatallaNPC(instancias[1].Personaje1, instancias[1].Personaje2);
+        Personaje? npcFinalista=Batalla.generarBatallaNPC(instancias[1].Personaje1, instancias[1].Personaje2);
         instancias.Clear();
         if(personajePrincipal.CarPersonaje.Salud>0){
             instancias.Add(new Instancia("Final", personajePrincipal, npcFinalista));
         }
         return instancias;
     }
-    public static void generarFinal(Personaje personajePrincipal, Personaje finalBoss){
+    public static async Task generarFinal(Personaje? personajePrincipal, Personaje? finalBoss){
         Thread.Sleep(250);
-        Console.WriteLine("BATALLA FINAL");
+        Console.WriteLine("GRAN FINAL");
         Thread.Sleep(1000);
         Console.WriteLine("LLEGO EL TAN ESPERADO COMBATE...");
-        Personaje ganador=Batalla.generarBatallaUsuario(personajePrincipal, finalBoss);
+        Thread.Sleep(2000);
+        Personaje? ganador=Batalla.generarBatallaUsuario(personajePrincipal, finalBoss);
         if(ganador==personajePrincipal){
-            mensajeVictoria(personajePrincipal);
+            await mensajeVictoria(personajePrincipal);
             //codigo guardar personaje
         }else{
             Console.Clear();
-            mensajeDerrota();
+            await mensajeDerrota();
         }
         Thread.Sleep(5000);
     }
-    public static async void mensajeVictoria(Personaje personajePrincipal){
-        string insulto= await APIinsultos.GetInsulto();
+    public static async Task mensajeVictoria(Personaje? personajePrincipal){
+        APIinsultos.Insulto? insulto=await APIinsultos.generarInsulto();
         Thread.Sleep(2000);
-        Console.WriteLine("\n¡GANASTE EL JUEGO!¡ENHORABUENA!");
+        Console.WriteLine("¡GANASTE EL JUEGO!¡ENHORABUENA!\n");
         Thread.Sleep(1000);
-        Console.WriteLine($"{personajePrincipal.DatosPersonaje.Nombre}: ¡Soy el mejor, {insulto}!");
+        Console.WriteLine($"{personajePrincipal.DatosPersonaje.Nombre}: ¡Soy el mejor, {insulto.insult.ToLower()}!\n");
         Thread.Sleep(1000);
-        Console.WriteLine("ASI TERMINO TU PERSONAJE:");
+        Console.WriteLine("ASI TERMINO TU PERSONAJE:\n");
         Thread.Sleep(1000);
         Personaje.mostrarPersonaje(personajePrincipal);
     }
-    public static async void mensajeDerrota(){
+    public static async Task mensajeDerrota(){
+        APIinsultos.Insulto? insulto=await APIinsultos.generarInsulto();
         Thread.Sleep(1000);
-        string insulto=await APIinsultos.GetInsulto();
-        Console.WriteLine($"\nOh {insulto}, perdiste en la final, que lastima");
+        Console.WriteLine($"Oh {insulto.insult.ToLower()}, perdiste en la final, que lastima");
     }
     public static async Task iniciarTorneo(List<Instancia?> instancias){
-        string insulto= await APIinsultos.GetInsulto();
+        APIinsultos.Insulto? insulto=await APIinsultos.generarInsulto();
         if(instancias.Count==8){
             instancias=generarOctavos(instancias);
             if(instancias.Count==0){
-                Console.WriteLine($"Oh que lastima, has sido derrotado en octavos {insulto}, ¡suerte la proxima!");
+                Console.WriteLine($"Oh que lastima {insulto.insult.ToLower()}, has sido derrotado en octavos, ¡suerte la proxima!\n");
                 return;
             }
-            Console.WriteLine("\nSiguiente instancia: Cuartos de final\nPresiona enter para continuar");
+            Thread.Sleep(4000);
+            Console.Clear();
+            Console.WriteLine("SIGUIENTE ESTANCIA: CUARTOS DE FINAL\n\nPresiona enter para continuar");
             while(true){
                 var tecla=Console.ReadKey();
                 if(tecla.Key==ConsoleKey.Enter){
@@ -211,17 +217,21 @@ public class Torneo{
                 }   
             }
             Console.Clear();
-            foreach(Instancia instancia in instancias){
+            foreach(Instancia? instancia in instancias){
                 instancia.Personaje1.CarPersonaje.aumentarA200Salud();
                 instancia.Personaje2.CarPersonaje.aumentarA200Salud();
             }
             escribirFixture(instancias);
+            Thread.Sleep(5000);
+            Console.Clear();
             instancias=generarCuartos(instancias);
             if(instancias.Count==0){
-                Console.WriteLine($"Oh que lastima, has sido derrotado en cuartos {insulto}, ¡suerte la proxima!");
+                Console.WriteLine($"Oh que lastima {insulto.insult.ToLower()}, has sido derrotado en cuartos, ¡suerte la proxima!\n");
                 return;
             }
-            Console.WriteLine("\nSiguiente instancia: Semifinales\nPresiona enter para continuar");
+            Thread.Sleep(4000);
+            Console.Clear();
+            Console.WriteLine("SIGUIENTE ESTANCIA: SEMIFINALES\n\nPresiona enter para continuar");
             while(true){
                 var tecla=Console.ReadKey();
                 if(tecla.Key==ConsoleKey.Enter){
@@ -229,27 +239,31 @@ public class Torneo{
                 }   
             }
             Console.Clear();
-            foreach(Instancia instancia in instancias){
+            foreach(Instancia? instancia in instancias){
                 instancia.Personaje1.CarPersonaje.aumentarA350Salud();
                 instancia.Personaje2.CarPersonaje.aumentarA350Salud();
             }
             escribirFixture(instancias);
+            Thread.Sleep(5000);
+            Console.Clear();
             instancias=generarSemis(instancias);
-            foreach(Instancia instancia in instancias){
+            foreach(Instancia? instancia in instancias){
                 instancia.Personaje1.CarPersonaje.aumentarA500Salud();
                 instancia.Personaje2.CarPersonaje.aumentarA500Salud();
             }
         }else if(instancias.Count==4){
             instancias=generarCuartos(instancias);
             if(instancias.Count==0){
-                Console.WriteLine($"Oh que lastima, has sido derrotado en cuartos {insulto}, ¡suerte la proxima!");
+                Console.WriteLine($"Oh que lastima {insulto.insult.ToLower()}, has sido derrotado en cuartos , ¡suerte la proxima!\n");
                 return;
             }
-            foreach(Instancia instancia in instancias){
+            foreach(Instancia? instancia in instancias){
                 instancia.Personaje1.CarPersonaje.aumentarA200Salud();
                 instancia.Personaje2.CarPersonaje.aumentarA200Salud();
             }
-            Console.WriteLine("\nSiguiente instancia: Semifinales\nPresiona enter para continuar");
+            Thread.Sleep(4000);
+            Console.Clear();
+            Console.WriteLine("SIGUIENTE ESTANCIA: SEMIFINALES\n\nPresiona enter para continuar");
             while(true){
                 var tecla=Console.ReadKey();
                 if(tecla.Key==ConsoleKey.Enter){
@@ -258,23 +272,27 @@ public class Torneo{
             }
             Console.Clear();
             escribirFixture(instancias);
+            Thread.Sleep(5000);
+            Console.Clear();
             instancias=generarSemis(instancias);
-            foreach(Instancia instancia in instancias){
+            foreach(Instancia? instancia in instancias){
                 instancia.Personaje1.CarPersonaje.aumentarA350Salud();
                 instancia.Personaje2.CarPersonaje.aumentarA350Salud();
             }
         }else{
             instancias=generarSemis(instancias);
-            foreach(Instancia instancia in instancias){
+            foreach(Instancia? instancia in instancias){
                 instancia.Personaje1.CarPersonaje.aumentarA200Salud();
                 instancia.Personaje2.CarPersonaje.aumentarA200Salud();
             }
         }
         if(instancias.Count==0){
-            Console.WriteLine($"Oh que lastima, has sido derrotado en semifinales {insulto}, ¡suerte la proxima!");
+            Console.WriteLine($"Oh que lastima {insulto.insult.ToLower()}, has sido derrotado en semifinales , ¡suerte la proxima!\n");
             return;
         }
-        Console.WriteLine("\nSiguiente instancia: ¡FINAL!\nPresiona enter para continuar con la FINAL");
+        Thread.Sleep(4000);
+        Console.Clear();
+        Console.WriteLine("SIGUIENTE ESTANCIA: ¡FINAL!\n\nPresiona enter para continuar con la FINAL");
             while(true){
                 var tecla=Console.ReadKey();
                 if(tecla.Key==ConsoleKey.Enter){
@@ -282,6 +300,6 @@ public class Torneo{
                 }   
             }
         Console.Clear();
-        generarFinal(instancias[0].Personaje1,instancias[0].Personaje2);
+        await generarFinal(instancias[0].Personaje1,instancias[0].Personaje2);
     }
 }
