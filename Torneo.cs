@@ -110,6 +110,7 @@ public class Torneo{
             Personaje? npcGanador=Batalla.generarBatallaNPC(instancias[i].Personaje1, instancias[i].Personaje2);
             npcsGanadores.Add(npcGanador);
         }
+        Console.WriteLine("HAN ACABADO LOS OCTAVOS DE FINAL");
         instancias.Clear();
         if(personajePrincipal.CarPersonaje.Salud>0){
             instancias.Add(new Instancia("1° Cuartos", personajePrincipal, npcsGanadores[0]));
@@ -139,6 +140,7 @@ public class Torneo{
                 npcsGanadores.Add(npcGanador);
             }
         }
+        Console.WriteLine("HAN ACABADO LOS CUARTOS DE FINAL");
         instancias.Clear();
         if(personajePrincipal.CarPersonaje.Salud>0){
             instancias.Add(new Instancia("1° Semifinal", personajePrincipal, npcsGanadores[0]));
@@ -161,6 +163,7 @@ public class Torneo{
             return instancias;
         }
         Personaje? npcFinalista=Batalla.generarBatallaNPC(instancias[1].Personaje1, instancias[1].Personaje2);
+        Console.WriteLine($"¡{npcFinalista} HA PASADO A LA FINAL!");
         instancias.Clear();
         if(personajePrincipal.CarPersonaje.Salud>0){
             instancias.Add(new Instancia("Final", personajePrincipal, npcFinalista));

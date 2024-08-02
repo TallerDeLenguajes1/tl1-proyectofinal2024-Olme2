@@ -95,7 +95,7 @@ foreach(Personaje npc in npcs){
 }
 Torneo.Instancia.CrearInstanciasIniciales(dificultadSeleccionada, PersonajePrincipal, npcs);
 Thread.Sleep(1000);
-Console.WriteLine("Presiona enter para continuar");
+Console.Write("\nPresiona enter para continuar");
 while(true){
     var tecla=Console.ReadKey();
     if(tecla.Key==ConsoleKey.Enter){
@@ -104,13 +104,14 @@ while(true){
 }
 Console.Clear();
 Torneo.escribirFixture(Torneo.Instancia.instancias);
-Console.WriteLine("¿Listo para empezar? Presiona enter cuando estes listo");
+Console.Write("¿Listo para empezar? Presiona enter cuando estes listo");
 while(true){
     var tecla=Console.ReadKey();
     if(tecla.Key==ConsoleKey.Enter){
         break;
     }
 }
+Console.Write("\n");
 for (i=3;i>0;i--){
     Console.Write($"\r{i}"); 
     Thread.Sleep(1000); 

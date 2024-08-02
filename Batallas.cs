@@ -8,7 +8,7 @@ public class Batalla{
             double efectividad=random.Next(1,100);
             double defensa=defensor.Armadura*defensor.Velocidad;
             const double constanteDeAjuste=500;
-            double dañoProvocado=Math.Round(((ataque*efectividad)-defensa)/constanteDeAjuste,1);
+            double dañoProvocado=Math.Abs(Math.Round(((ataque*efectividad)-defensa)/constanteDeAjuste,1));
             return dañoProvocado;
         }
         public static Personaje? generarBatallaUsuario(Personaje? usuario, Personaje? npc){
@@ -19,19 +19,34 @@ public class Batalla{
             int round=1;
             while(usuario.CarPersonaje.Salud>0 && npc.CarPersonaje.Salud>0){
                 Console.Clear();
-                Console.WriteLine($"¡Round "+round+"!");
+                Console.Write(usuario.DatosPersonaje.Nombre+"\t\t\t");
+                for(int i=0; i<usuario.CarPersonaje.Salud; i+=5){
+                    Console.Write("/");
+                }
+                Console.Write("\n");
+                Console.Write(npc.DatosPersonaje.Nombre+"\t\t\t");
+                for(int i=0; i<npc.CarPersonaje.Salud; i+=5){
+                    Console.Write("/");
+                }
+                Console.Write("\n\n");
+                double dañoANPC=dañoProvocado(usuario.CarPersonaje, npc.CarPersonaje);
+                Console.WriteLine($"¡Round "+round+"!\n");
                 if(round<=10){
                     Thread.Sleep(500);
                 }
                 if(round>10 && round<=25){
                     Thread.Sleep(250);
                 }
-                if(round>25){
+                if(round>25 && round<=50){
                     Thread.Sleep(100);
+                    dañoANPC*=2;
                 }
-                double dañoANPC=dañoProvocado(usuario.CarPersonaje, npc.CarPersonaje);
-                npc.CarPersonaje.Salud-=Math.Round(dañoANPC,1);
-                Console.WriteLine($"Le has provocado {dañoANPC} de daño a {npc.DatosPersonaje.Nombre}");
+                if(round>50){
+                    Thread.Sleep(100);
+                    dañoANPC*=5;
+                }
+                npc.CarPersonaje.Salud-=dañoANPC;
+                Console.WriteLine($"Le has provocado {dañoANPC} de daño a {npc.DatosPersonaje.Nombre}\n");
                 if(round<=10){
                     Thread.Sleep(500);
                 }
@@ -42,13 +57,29 @@ public class Batalla{
                     Thread.Sleep(100);
                 }
                 if(npc.CarPersonaje.Salud<=0){
+                    Console.Clear();
+                    Console.Write(usuario.DatosPersonaje.Nombre+"\t\t\t");
+                    for(int i=0; i<usuario.CarPersonaje.Salud; i+=5){
+                    Console.Write("/");
+                    }
+                    Console.Write("\n");
+                    Console.Write(npc.DatosPersonaje.Nombre);
+                    Console.Write("\n\n");
+                    Console.WriteLine($"¡Round "+round+"!\n");
+                    Console.WriteLine($"Le has provocado {dañoANPC} de daño a {npc.DatosPersonaje.Nombre}\n");
                     Thread.Sleep(1000);
                     Console.WriteLine($"¡{npc.DatosPersonaje.Nombre} ha muerto!");
                     Thread.Sleep(3000);
                     break;
                 }
                 double dañoAPersonaje=dañoProvocado(npc.CarPersonaje,usuario.CarPersonaje);
-                usuario.CarPersonaje.Salud-=Math.Round(dañoAPersonaje,1);
+                if(round>25 && round<=50){
+                    dañoAPersonaje*=2;
+                }
+                if(round>50){
+                    dañoAPersonaje*=5;
+                }
+                usuario.CarPersonaje.Salud-=dañoAPersonaje;
                 Console.WriteLine($"{npc.DatosPersonaje.Nombre} te provocó {dañoAPersonaje} de daño");
                 if(round<=25){
                     Thread.Sleep(500);
@@ -57,6 +88,17 @@ public class Batalla{
                     Thread.Sleep(250);
                 }
                 if(usuario.CarPersonaje.Salud<=0){
+                    Console.Clear();
+                    Console.Write(usuario.DatosPersonaje.Nombre);
+                    Console.Write("\n");
+                    Console.Write(npc.DatosPersonaje.Nombre+"\t\t\t");
+                    for(int i=0; i<npc.CarPersonaje.Salud; i+=5){
+                        Console.Write("/");
+                    }
+                    Console.Write("\n\n");
+                    Console.WriteLine($"¡Round "+round+"!\n");
+                    Console.WriteLine($"Le has provocado {dañoANPC} de daño a {npc.DatosPersonaje.Nombre}\n");
+                    Console.WriteLine($"{npc.DatosPersonaje.Nombre} te provocó {dañoAPersonaje} de daño\n");
                     Thread.Sleep(1000);
                     Console.WriteLine("¡Has muerto!");
                     Thread.Sleep(3000);
@@ -75,7 +117,11 @@ public class Batalla{
                 Console.WriteLine($"\n¡Has sido derrotado!");
                 Thread.Sleep(5000);
                 Console.Clear();
-                Console.WriteLine("/////////////////\n////GAME OVER////\n/////////////////");
+                Console.WriteLine("/////////////////");
+                Thread.Sleep(500);
+                Console.WriteLine("////GAME OVER////");
+                Thread.Sleep(500);
+                Console.WriteLine("/////////////////");
                 Thread.Sleep(5000);
                 Console.Clear();
                 return npc;
