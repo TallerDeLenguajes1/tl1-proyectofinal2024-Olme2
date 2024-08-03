@@ -4,15 +4,45 @@ int j=0;
 Dificultad.Dificultades dificultadSeleccionada = Dificultad.dificultades[0];    
 int totalDificultades=Dificultad.dificultades.Count;
 Console.WriteLine("¡Bienvenido a UCM fights!\n");
+Thread.Sleep(3000);
+Console.WriteLine("HISTORIAL DE GANADORES:\n");
+Thread.Sleep(1000);
+await HistorialJson.mostrarGanadores("ganadores.json");
+Console.Write("\nPresiona enter para empezar");
+Thread.Sleep(500);
+while(true){
+    Console.Write("\r                           ");
+    if(Console.KeyAvailable){
+        var tecla=Console.ReadKey(intercept: true);
+        if(tecla.Key==ConsoleKey.Enter){
+            break;
+        }
+    }
+    Thread.Sleep(500);
+    Console.Write("\rPresiona enter para empezar");
+    if(Console.KeyAvailable){
+        var tecla=Console.ReadKey(intercept: true);
+        if(tecla.Key==ConsoleKey.Enter){
+            break;
+        }
+    }
+    Thread.Sleep(500);
+}
+string? usuario;
+do{
+    Console.Clear();
+    Console.Write("Escriba su nombre: ");
+    usuario=Console.ReadLine();
+}while(string.IsNullOrWhiteSpace(usuario));
+usuario=usuario.ToUpper();
+Console.Clear();
+Console.WriteLine($"USUARIO: {usuario}\n");
 Thread.Sleep(2000);
-Console.WriteLine("HISTORIAL DE GANADORES:");
-Thread.Sleep(2000);
-Console.WriteLine("\nSeleccione una dificultad:\n");
+Console.WriteLine("Seleccione una dificultad:\n");
 Thread.Sleep(1000);  
 while (true){
     if(j!=0){
-        Console.WriteLine("¡Bienvenido a UCM fights!\n");
-        Console.WriteLine("HISTORIAL DE GANADORES:");
+        Console.WriteLine("USUARIO: "+usuario);
         Console.WriteLine("\nSeleccione una dificultad:\n");  
     }  
     for (i = 0; i < 3; i++){
@@ -95,23 +125,9 @@ foreach(Personaje npc in npcs){
 }
 Torneo.Instancia.CrearInstanciasIniciales(dificultadSeleccionada, PersonajePrincipal, npcs);
 Thread.Sleep(1000);
-Console.Write("\nPresiona enter para continuar");
-while(true){
-    var tecla=Console.ReadKey();
-    if(tecla.Key==ConsoleKey.Enter){
-        break;
-    }
-}
+Torneo.presionaEnter();
 Console.Clear();
 Torneo.escribirFixture(Torneo.Instancia.instancias);
-Console.Write("¿Listo para empezar? Presiona enter cuando estes listo");
-while(true){
-    var tecla=Console.ReadKey();
-    if(tecla.Key==ConsoleKey.Enter){
-        break;
-    }
-}
-Console.Write("\n");
 for (i=3;i>0;i--){
     Console.Write($"\r{i}"); 
     Thread.Sleep(1000); 
@@ -119,7 +135,7 @@ for (i=3;i>0;i--){
 Console.Write("\r¡A luchar!");
 Thread.Sleep(2000);
 Console.Clear();
-await Torneo.iniciarTorneo(Torneo.Instancia.instancias);
+await Torneo.iniciarTorneo(Torneo.Instancia.instancias, usuario, $"{dificultadSeleccionada}");
 Thread.Sleep(2000);
-Console.WriteLine("¡Ha terminado el torneo, gracias por jugar!");
+Console.WriteLine($"\n¡Ha terminado el torneo, gracias por jugar {usuario.ToLower()}!");
 Thread.Sleep(2000);

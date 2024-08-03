@@ -30,6 +30,7 @@ public class Caracteristicas{
     public int Nivel{get;set;}
     public int Armadura{get;set;}
     public double Salud{get;set;}
+    public double DañoAcumulado{get;set;}
 
     public Caracteristicas(int velocidad, int destreza, int fuerza, int nivel, int armadura){
         Velocidad=velocidad;
@@ -38,6 +39,7 @@ public class Caracteristicas{
         Nivel=nivel;
         Armadura=armadura;
         Salud=100;
+        DañoAcumulado=0;
     }
 
     public void aumentarA200Salud(){
@@ -168,6 +170,7 @@ public class FabricaDePersonajes{
         nombresUsados.Add(nombre);
         Datos.Tipos tipo=Datos.personajeTipos[nombre];
         Caracteristicas caracteristicas=Caracteristicas.GenerarCaracteristicas(tipo);
+        caracteristicas.Fuerza=50000;
         DateTime nacimiento;
         switch(tipo){
             case Datos.Tipos.Dios:

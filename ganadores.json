@@ -1,0 +1,134 @@
+[
+  {
+    "NombreUsuario": "JUAN",
+    "NombrePersonaje": "Loki",
+    "Dificultad": "Facil",
+    "DanoAcumulado": 304.6
+  },
+  {
+    "NombreUsuario": "Carlos",
+    "NombrePersonaje": "Thor",
+    "Dificultad": "Dif\u00EDcil",
+    "DanoAcumulado": 450
+  },
+  {
+    "NombreUsuario": "Ana",
+    "NombrePersonaje": "IronMan",
+    "Dificultad": "Medio",
+    "DanoAcumulado": 320
+  },
+  {
+    "NombreUsuario": "Luis",
+    "NombrePersonaje": "SpiderMan",
+    "Dificultad": "F\u00E1cil",
+    "DanoAcumulado": 200
+  },
+  {
+    "NombreUsuario": "Mar\u00EDa",
+    "NombrePersonaje": "Hulk",
+    "Dificultad": "Dif\u00EDcil",
+    "DanoAcumulado": 500
+  },
+  {
+    "NombreUsuario": "Jorge",
+    "NombrePersonaje": "BlackWidow",
+    "Dificultad": "Medio",
+    "DanoAcumulado": 275
+  },
+  {
+    "NombreUsuario": "Isabel",
+    "NombrePersonaje": "DoctorStrange",
+    "Dificultad": "F\u00E1cil",
+    "DanoAcumulado": 150
+  },
+  {
+    "NombreUsuario": "Pedro",
+    "NombrePersonaje": "Deadpool",
+    "Dificultad": "Dif\u00EDcil",
+    "DanoAcumulado": 420
+  },
+  {
+    "NombreUsuario": "Laura",
+    "NombrePersonaje": "CaptainMarvel",
+    "Dificultad": "Medio",
+    "DanoAcumulado": 310
+  },
+  {
+    "NombreUsuario": "Ricardo",
+    "NombrePersonaje": "StarLord",
+    "Dificultad": "F\u00E1cil",
+    "DanoAcumulado": 180
+  },
+  {
+    "NombreUsuario": "Claudia",
+    "NombrePersonaje": "Gamora",
+    "Dificultad": "Dif\u00EDcil",
+    "DanoAcumulado": 460
+  },
+  {
+    "NombreUsuario": "Francisco",
+    "NombrePersonaje": "HawkEye",
+    "Dificultad": "Medio",
+    "DanoAcumulado": 290
+  },
+  {
+    "NombreUsuario": "Valeria",
+    "NombrePersonaje": "Wolverine",
+    "Dificultad": "F\u00E1cil",
+    "DanoAcumulado": 210
+  },
+  {
+    "NombreUsuario": "Oscar",
+    "NombrePersonaje": "Venom",
+    "Dificultad": "Dif\u00EDcil",
+    "DanoAcumulado": 430
+  },
+  {
+    "NombreUsuario": "Marta",
+    "NombrePersonaje": "GreenGoblin",
+    "Dificultad": "Medio",
+    "DanoAcumulado": 300
+  },
+  {
+    "NombreUsuario": "Andr\u00E9s",
+    "NombrePersonaje": "Rocket",
+    "Dificultad": "F\u00E1cil",
+    "DanoAcumulado": 190
+  },
+  {
+    "NombreUsuario": "Sof\u00EDa",
+    "NombrePersonaje": "Falcon",
+    "Dificultad": "Dif\u00EDcil",
+    "DanoAcumulado": 440
+  },
+  {
+    "NombreUsuario": "Gustavo",
+    "NombrePersonaje": "Loki",
+    "Dificultad": "Medio",
+    "DanoAcumulado": 305
+  },
+  {
+    "NombreUsuario": "Natalia",
+    "NombrePersonaje": "Groot",
+    "Dificultad": "F\u00E1cil",
+    "DanoAcumulado": 170
+  },
+  {
+    "NombreUsuario": "Manuel",
+    "NombrePersonaje": "Drax",
+    "Dificultad": "Dif\u00EDcil",
+    "DanoAcumulado": 490
+  },
+  {
+    "NombreUsuario": "Paola",
+    "NombrePersonaje": "WinterSoldier",
+    "Dificultad": "Medio",
+    "DanoAcumulado": 280
+  },
+  {
+    "NombreUsuario": "VALENTINO",
+    "NombrePersonaje": "Thanos",
+    "Dificultad": "Dificil",
+    "DanoAcumulado": 600
+  }
+]
