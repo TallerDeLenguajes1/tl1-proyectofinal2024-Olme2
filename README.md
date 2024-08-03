@@ -1,5 +1,5 @@
 # DOCUMENTACION DE PROYECTO FINAL VALENTINO OLMEDO
-TEMATICA DEL JUEGO
+## TEMATICA DEL JUEGO
 Mi juego de consola trata de un torneo de peleas de marvel el cual dependiendo de la dificultad facil, medio o dificil, empieza desde las instancias octavos, cuartos y semifinales, respectivamente. Al iniciar el programa muestra un mensaje de bienvenida con el historial de los 10 mejores ganadores (basados en el daño hecho en una partida entera). Luego habiendo ya colocado tu nombre para luego guardarlo en el historial de jugadores, seleccionas la dificultad y el personaje. Luego se generan los personajes con la fabrica de personajes, cada uno con sus respectivas caracteristicas dependiendo del tipo de personaje que sean, dependiendo de la dificultad son: 
 Facil: 1 personaje usuario y 3 npc 
 Medio: 1 personaje usuario y 5 npc
@@ -12,15 +12,15 @@ Tambien por cada instancia se va aumentando vida a los personajes, para equilibr
 Una vez ganado el torneo, hace las conmemoraciones correspondientes, el personaje dice un insulto y se muestran las caracteristicas con las cuales acabo ese personaje.
 Luego, antes de finalizar el programa, se agrega el nombre de usuario, nombre de personaje, dificultad y daño acumulado (que seria el daño total que hizo en la partida) a modo de puntuacion, para luego tener un ranking.
 
-APIS USADAS
+## APIS USADAS
 Se uso una api de insultos, la cual es generada con el siguiente link "https://evilinsult.com/generate_insult.php?lang=es&type=json". Si se realiza correctamente la operacion se utiliza el insulto, sino devuelve "hijo de puta" como insulto predeterminado, asi no nos quedamos sin insulto durante el programa.
 
-PROGRAMAS DEL PROYECTO
+## PROGRAMAS DEL PROYECTO
 Apis.cs: Aqui se encuentran las clases y el metodo para usar la api
 Batallas.cs: Aqui se encuentra el codigo para correr las batallas
 FuncionesJson.cs: Este es el codigo para guardar y leer el historial Json de Ganadores
 Personajes.cs: Todo el codigo referido a personajes, tanto caracteristicas como datos, fabrica de personajes y los nombres predeterminados con sus tipos
 Torneo.cs: Aqui se encuentra toda la organizacion del torneo, es el segundo programa mas importante luego del main program.
 
-EXPLICACION DE USO
+## EXPLICACION DE USO
 La interfaz es muy facil de entender, asi que no hay mucho que explicar, utiliza dotnet run y juega!
