@@ -1,4 +1,4 @@
-##DOCUMENTACION DE PROYECTO FINAL VALENTINO OLMEDO##
+# DOCUMENTACION DE PROYECTO FINAL VALENTINO OLMEDO
 TEMATICA DEL JUEGO
 Mi juego de consola trata de un torneo de peleas de marvel el cual dependiendo de la dificultad facil, medio o dificil, empieza desde las instancias octavos, cuartos y semifinales, respectivamente. Al iniciar el programa muestra un mensaje de bienvenida con el historial de los 10 mejores ganadores (basados en el daño hecho en una partida entera). Luego habiendo ya colocado tu nombre para luego guardarlo en el historial de jugadores, seleccionas la dificultad y el personaje. Luego se generan los personajes con la fabrica de personajes, cada uno con sus respectivas caracteristicas dependiendo del tipo de personaje que sean, dependiendo de la dificultad son: 
 Facil: 1 personaje usuario y 3 npc 
