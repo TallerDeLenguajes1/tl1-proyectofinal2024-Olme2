@@ -170,7 +170,6 @@ public class FabricaDePersonajes{
         nombresUsados.Add(nombre);
         Datos.Tipos tipo=Datos.personajeTipos[nombre];
         Caracteristicas caracteristicas=Caracteristicas.GenerarCaracteristicas(tipo);
-        caracteristicas.Fuerza=50000;
         DateTime nacimiento;
         switch(tipo){
             case Datos.Tipos.Dios:
